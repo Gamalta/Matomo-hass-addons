@@ -19,14 +19,14 @@ RUN \
         mariadb-server \
         nginx \
         curl \
-        php-fpm \
-        php-mysql \
-        php-cli \
-        php-gd \
-        php-curl \
-        php-xml \
-        php-mbstring \
-        php-zip \
+        php8.4-fpm \
+        php8.4-mysql \
+        php8.4-cli \
+        php8.4-gd \
+        php8.4-curl \
+        php8.4-xml \
+        php8.4-mbstring \
+        php8.4-zip \
     && apt-get clean \
     && rm -f -r \
         /etc/nginx \
