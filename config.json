@@ -1,7 +1,7 @@
 {
   "name": "Matomo",
   "slug": "matomo",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "Matomo analytics with embedded MariaDB",
   "boot": "auto",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:9000]",
