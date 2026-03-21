@@ -1,0 +1,39 @@
+{
+  "name": "Matomo",
+  "slug": "matomo",
+  "version": "1.0.0",
+  "description": "Matomo analytics with embedded MariaDB",
+  "startup": "services",
+  "boot": "auto",
+  "init": false,
+  "arch": ["aarch64", "amd64"],
+
+  "ingress": true,
+  "ingress_port": 80,
+  "panel_icon": "mdi:chart-line",
+
+  "ports": {
+    "8080/tcp": 8080
+  },
+  "ports_description": {
+    "8080/tcp": "Matomo (external access)"
+  },
+
+  "map": [
+    "data:rw"
+  ],
+
+  "options": {
+    "db_name": "matomo",
+    "db_user": "matomo",
+    "db_password": "matomo"
+  },
+
+  "schema": {
+    "db_name": "str",
+    "db_user": "str",
+    "db_password": "str"
+  },
+
+  "image": "ghcr.io/TON_USER/matomo-addon-{arch}"
+}

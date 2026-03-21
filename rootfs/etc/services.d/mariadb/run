@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bash
+
+echo "Starting MariaDB..."
+
+mkdir -p /data/mysql
+
+chown -R mysql:mysql /data/mysql
+
+mysqld --datadir=/data/mysql

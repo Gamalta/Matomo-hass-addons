@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv bash
+
+CONFIG_PATH=/data/options.json
+
+DB_NAME=$(jq -r '.db_name' $CONFIG_PATH)
+DB_USER=$(jq -r '.db_user' $CONFIG_PATH)
+DB_PASS=$(jq -r '.db_password' $CONFIG_PATH)
+
+echo "Waiting for MariaDB..."
+sleep 10
+
+echo "Creating database..."
+
+mysql -u root <<EOF
+CREATE DATABASE IF NOT EXISTS $DB_NAME;
+CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
+GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';
+FLUSH PRIVILEGES;
+EOF
+
+echo "Configuring Matomo..."
+
+export MATOMO_DATABASE_HOST=127.0.0.1
+export MATOMO_DATABASE_USERNAME=$DB_USER
+export MATOMO_DATABASE_PASSWORD=$DB_PASS
+export MATOMO_DATABASE_DBNAME=$DB_NAME
+
+# PHP встроенный server fallback (optionnel)
+php -S 0.0.0.0:9000 -t /var/www/html
