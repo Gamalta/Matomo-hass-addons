@@ -2,4 +2,4 @@
 
 bashio::log.info  "Launching PHP..."
 
-exec php-fpm8.1 -F
+exec php -F
