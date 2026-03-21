@@ -12,12 +12,11 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Get the Matomo from official images
 COPY --from=matomo /var/www/html /var/www/html
 
-# Add MariaDB + Nginx + Deps
+# Add MariaDB + Deps
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         mariadb-server \
-        nginx \
         curl \
         php8.4-fpm \
         php8.4-mysql \
@@ -27,12 +26,7 @@ RUN \
         php8.4-xml \
         php8.4-mbstring \
         php8.4-zip \
-    && apt-get clean \
-    && rm -f -r \
-        /etc/nginx \
-    \
-    && mkdir -p /var/log/nginx \
-    && touch /var/log/nginx/error.log
+    && apt-get clean
 
 # Copy root filesystem
 COPY rootfs /
