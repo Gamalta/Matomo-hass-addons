@@ -1,8 +1,5 @@
-#!/command/with-contenv bashio
-# ==============================================================================
-# Home Assistant Community App: Matomo
-# Take down the S6 supervision tree when Nginx fails
-# ==============================================================================
+#!/command/with-contenv bash
+
 declare exit_code
 readonly exit_code_container=$(</run/s6-linux-init-container-results/exitcode)
 readonly exit_code_service="${1}"

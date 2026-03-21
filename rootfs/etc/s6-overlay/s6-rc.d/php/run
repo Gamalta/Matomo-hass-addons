@@ -1,4 +1,5 @@
-#!/usr/bin/with-contenv bash
-set -e
+#!/usr/bin/with-contenv bashio
+
 bashio::log.info  "Launching PHP..."
+
 exec php-fpm8.1 -F
