@@ -1,9 +1,9 @@
 #!/usr/bin/with-contenv bash
 
-echo "Starting MariaDB..."
+bashio::log.info "Starting MariaDB..."
 
-mkdir -p /data/mysql
+exec mkdir -p /data/mysql
 
-chown -R mysql:mysql /data/mysql
+exec chown -R mysql:mysql /data/mysql
 
-mysqld --datadir=/data/mysql
+exec mysqld --datadir=/data/mysql

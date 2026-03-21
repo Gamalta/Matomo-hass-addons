@@ -1,3 +1,4 @@
 #!/usr/bin/with-contenv bash
-# Lancer PHP-FPM au premier plan
+set -e
+bashio::log.info  "Launching PHP..."
 exec php-fpm8.1 -F
