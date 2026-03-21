@@ -1,16 +1,12 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:9.2.0
 
-# Get prebuilt containers from Matomo
-FROM matomo:5.8.0-fpm-alpine AS matomo
-
 # Build the actual app.
 FROM ${BUILD_FROM}
 
+ENV PHP_MEMORY_LIMIT=256M
+
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-# Get the Matomo from official images
-COPY --from=matomo /var/www/html /var/www/html
 
 # Add MariaDB + Deps
 RUN \
@@ -28,9 +24,21 @@ RUN \
         php8.4-zip \
     && apt-get clean
 
+
+ENV MATOMO_VERSION=5.8.0
+RUN mkdir -p /var/www/html \
+    && chown www-data:www-data /var/www/html \
+    && curl -fsSL -o /tmp/matomo.tar.gz "https://builds.matomo.org/matomo-${MATOMO_VERSION}.tar.gz" \
+    && tar -xzf /tmp/matomo.tar.gz -C /var/www/html --strip-components=1 \
+    && rm /tmp/matomo.tar.gz \
+    && chown -R www-data:www-data /var/www/html
+
 # Copy root filesystem
 COPY rootfs /
 RUN chmod +x /etc/s6-overlay/s6-rc.d/init-mariadb/run
+
+#COPY php.ini
+COPY php.ini /usr/local/etc/php/conf.d/php-matomo.ini
 
 # Build arguments
 ARG BUILD_ARCH
