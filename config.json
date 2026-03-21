@@ -1,7 +1,7 @@
 {
   "name": "Matomo",
   "slug": "matomo",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "Matomo analytics with embedded MariaDB",
   "boot": "auto",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:9001]",
@@ -16,13 +16,24 @@
     "9001/tcp": "Matomo web interface"
   },
 
+  "map": [
+    "ssl"
+  ],
+
   "options": {
+    "ssl": true,
+    "certfile": "fullchain.pem",
+    "keyfile": "privkey.pem",
     "db_name": "matomo",
     "db_user": "matomo",
     "db_password": "matomo"
   },
   "schema": {
     "log_level": "list(trace|debug|info|notice|warning|error|fatal)?",
+    "ssl": "bool",
+    "certfile": "str",
+    "keyfile": "str",
+    "request_size_limit": "int?",
     "db_name": "str",
     "db_user": "str",
     "db_password": "str"
