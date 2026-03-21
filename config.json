@@ -1,7 +1,7 @@
 {
   "name": "Matomo",
   "slug": "matomo",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Matomo analytics with embedded MariaDB",
   "boot": "auto",
   "init": false,

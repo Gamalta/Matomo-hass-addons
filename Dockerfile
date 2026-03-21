@@ -18,8 +18,15 @@ RUN \
     && apt-get install -y --no-install-recommends \
         mariadb-server \
         nginx \
-        jq \
         curl \
+        php-fpm \
+        php-mysql \
+        php-cli \
+        php-gd \
+        php-curl \
+        php-xml \
+        php-mbstring \
+        php-zip \
     && apt-get clean \
     && rm -f -r \
         /etc/nginx \
