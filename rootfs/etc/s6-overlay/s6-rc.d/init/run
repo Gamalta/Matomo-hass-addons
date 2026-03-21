@@ -25,5 +25,4 @@ export MATOMO_DATABASE_USERNAME=$DB_USER
 export MATOMO_DATABASE_PASSWORD=$DB_PASS
 export MATOMO_DATABASE_DBNAME=$DB_NAME
 
-# PHP встроенный server fallback (optionnel)
 php -S 0.0.0.0:9000 -t /var/www/html

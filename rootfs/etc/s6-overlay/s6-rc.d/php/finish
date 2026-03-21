@@ -1,0 +1,3 @@
+#!/usr/bin/with-contenv bash
+# Actions après l'arrêt de PHP
+bashio::log.info "PHP service stopped with exit code $1"
