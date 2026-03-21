@@ -8,11 +8,12 @@ ENV PHP_MEMORY_LIMIT=256M
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Add MariaDB + Deps
+# Add MariaDB + Nginx + Deps
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends \
         mariadb-server \
+        nginx \
         curl \
         php8.4-fpm \
         php8.4-mysql \
@@ -22,7 +23,12 @@ RUN \
         php8.4-xml \
         php8.4-mbstring \
         php8.4-zip \
-    && apt-get clean
+    && apt-get clean \
+    && rm -f -r \
+        /etc/nginx \
+    \
+    && mkdir -p /var/log/nginx \
+    && touch /var/log/nginx/error.log
 
 
 ENV MATOMO_VERSION=5.8.0
