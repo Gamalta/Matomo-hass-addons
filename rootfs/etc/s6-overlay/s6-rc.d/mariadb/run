@@ -5,6 +5,4 @@ bashio::log.info "Starting MariaDB..."
 mkdir -p /data/mysql /run/mysqld
 chown -R mysql:mysql /data/mysql /run/mysqld
 
-exec sleep infinity
-
-# exec mysqld --datadir=/data/mysql --user=root
+exec mysqld --datadir=/data/mysql --user=root

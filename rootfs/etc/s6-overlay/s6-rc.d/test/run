@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+
+bashio::log.info  "Creating database..."
+echo "coucou"
