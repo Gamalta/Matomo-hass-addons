@@ -1,2 +1,2 @@
 #!/usr/bin/with-contenv bash
-bashio::log.info "MariaDB service stopped with exit code $1"
+echo "MariaDB service stopped with exit code $1"
