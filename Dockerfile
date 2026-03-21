@@ -41,7 +41,8 @@ RUN mkdir -p /var/www/html \
 
 # Copy root filesystem
 COPY rootfs /
-RUN chmod +x /etc/s6-overlay/s6-rc.d/init-mariadb/run
+RUN chmod +x /etc/s6-overlay/s6-rc.d/init-mariadb/run \
+  && chmod +x /etc/s6-overlay/s6-rc.d/init-nginx/run
 
 #COPY php.ini
 COPY php.ini /usr/local/etc/php/conf.d/php-matomo.ini
