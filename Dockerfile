@@ -1,7 +1,7 @@
 ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:9.2.0
 
 # Get prebuilt containers from Matomo
-FROM matomo:latest AS matomo
+FROM matomo:5.8.0-fpm-alpine AS matomo
 
 # Build the actual app.
 FROM ${BUILD_FROM}
