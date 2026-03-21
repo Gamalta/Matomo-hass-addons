@@ -33,7 +33,5 @@
     "db_name": "str",
     "db_user": "str",
     "db_password": "str"
-  },
-
-  "image": "ghcr.io/TON_USER/matomo-addon-{arch}"
+  }
 }
