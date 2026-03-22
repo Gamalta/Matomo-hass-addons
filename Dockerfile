@@ -38,8 +38,7 @@ RUN mkdir -p /var/www/html \
     && curl -fsSL -o /tmp/matomo.tar.gz "https://builds.matomo.org/matomo-${MATOMO_VERSION}.tar.gz" \
     && tar -xzf /tmp/matomo.tar.gz -C /var/www/html --strip-components=1 \
     && rm /tmp/matomo.tar.gz \
-    && chown www-data:www-data /var/www/html \
-    && find /var/www/html -not -path "*/config*" -not -path "*/tmp*" -not -path "*/misc*" | xargs chown www-data:www-data
+    && chown -R www-data:www-data /var/www/html
 
 # Copy root filesystem
 COPY rootfs /
