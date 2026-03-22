@@ -1,0 +1,34 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.info "Initializing persistent data Matomo..."
+
+DATA_DIR="/data/matomo"
+
+mkdir -p \
+    "${DATA_DIR}/config" \
+    "${DATA_DIR}/misc" \
+    "${DATA_DIR}/tmp"
+
+chown -R www-data:www-data "${DATA_DIR}"
+
+link_dir() {
+    local src="/var/www/html/$1"
+    local dst="${DATA_DIR}/$1"
+
+    if [ -d "${src}" ] && [ ! -L "${src}" ]; then
+        bashio::log.info "Migrate from $1 to /data..."
+        cp -a "${src}/." "${dst}/"
+        rm -rf "${src}"
+    fi
+
+    if [ ! -L "${src}" ]; then
+        ln -s "${dst}" "${src}"
+        bashio::log.info "Create symlink: ${src} → ${dst}"
+    fi
+}
+
+link_dir "config"
+link_dir "misc"
+link_dir "tmp"
+
+bashio::log.info "Persistent data ready !"

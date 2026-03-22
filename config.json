@@ -17,7 +17,8 @@
   },
 
   "map": [
-    "ssl"
+    "ssl",
+    "data"
   ],
 
   "options": {

@@ -4,6 +4,8 @@ DB_NAME=$(bashio::config 'db_name')
 DB_USER=$(bashio::config 'db_user')
 DB_PASS=$(bashio::config 'db_password')
 
+sed -i "s|datadir.*=.*|datadir = /data/mysql|" /etc/mysql/mariadb.conf.d/50-server.cnf
+
 if [ ! -d "/data/mysql/mysql" ]; then
   bashio::log.info "Initializing MariaDB database..."
   mariadb-install-db --user=mysql --datadir=/data/mysql
