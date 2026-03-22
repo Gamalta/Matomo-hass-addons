@@ -33,6 +33,7 @@ RUN \
 
 ENV MATOMO_VERSION=5.8.0
 RUN mkdir -p /var/www/html \
+    && rm /var/www/html/index.nginx-debian.html \
     && chown www-data:www-data /var/www/html \
     && curl -fsSL -o /tmp/matomo.tar.gz "https://builds.matomo.org/matomo-${MATOMO_VERSION}.tar.gz" \
     && tar -xzf /tmp/matomo.tar.gz -C /var/www/html --strip-components=1 \
