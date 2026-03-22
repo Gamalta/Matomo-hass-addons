@@ -1,25 +1,41 @@
 server {
-    {{ if .ssl }}
-    listen 9001 ssl http2;
-    include /etc/nginx/includes/ssl_params.conf;
-    ssl_certificate /ssl/{{ .certfile }};
-    ssl_certificate_key /ssl/{{ .keyfile }};
+    {{ if not .ssl }}
+    listen 80 default_server;
     {{ else }}
-    listen 9001;
+    listen 80 default_server ssl;
+    http2 on;
     {{ end }}
 
     include /etc/nginx/includes/server_params.conf;
 
-    location ~ \.php$ {
-        proxy_pass http://127.0.0.1:9000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_read_timeout 90;
-    }
-
     {{ if .ssl }}
-    error_page 497 https://$host$request_uri;
+    include /etc/nginx/includes/ssl_params.conf;
+
+    ssl_certificate /ssl/{{ .certfile }};
+    ssl_certificate_key /ssl/{{ .keyfile }};
     {{ end }}
+
+    location ~ .php$ {
+        fastcgi_pass 127.0.0.1:9001;
+        fastcgi_read_timeout 900;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+
+
+server {
+    listen 80 default_server;
+
+    include /etc/nginx/includes/server_params.conf;
+    include /etc/nginx/includes/php.conf;
+
+    location ~ .php$ {
+        fastcgi_pass 127.0.0.1:9001;
+        fastcgi_read_timeout 900;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
 }

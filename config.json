@@ -4,16 +4,16 @@
   "version": "1.0.32",
   "description": "Matomo analytics with embedded MariaDB",
   "boot": "auto",
-  "webui": "[PROTO:ssl]://[HOST]:[PORT:9001]",
+  "webui": "[PROTO:ssl]://[HOST]:[PORT:9000]",
   "init": false,
   "arch": ["aarch64", "amd64"],
   "panel_icon": "mdi:chart-line",
 
   "ports": {
-    "9001/tcp": 9001
+    "9000/tcp": 80
   },
   "ports_description": {
-    "9001/tcp": "Matomo web interface"
+    "9000/tcp": "Matomo web interface"
   },
 
   "map": [
