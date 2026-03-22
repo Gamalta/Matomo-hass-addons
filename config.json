@@ -1,7 +1,7 @@
 {
   "name": "Matomo",
   "slug": "matomo",
-  "version": "1.0.34",
+  "version": "1.0.35",
   "description": "Matomo analytics with embedded MariaDB",
   "boot": "auto",
   "webui": "[PROTO:ssl]://[HOST]:[PORT:9000]",
@@ -10,10 +10,10 @@
   "panel_icon": "mdi:chart-line",
 
   "ports": {
-    "9000/tcp": 80
+    "80/tcp": 9000
   },
   "ports_description": {
-    "9000/tcp": "Matomo web interface"
+    "80/tcp": "Matomo web interface"
   },
 
   "map": [
