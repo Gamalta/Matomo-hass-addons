@@ -38,12 +38,14 @@ RUN mkdir -p /var/www/html \
     && curl -fsSL -o /tmp/matomo.tar.gz "https://builds.matomo.org/matomo-${MATOMO_VERSION}.tar.gz" \
     && tar -xzf /tmp/matomo.tar.gz -C /var/www/html --strip-components=1 \
     && rm /tmp/matomo.tar.gz \
-    && chown -R www-data:www-data /var/www/html
+    && chown www-data:www-data /var/www/html \
+    && find /var/www/html -not -path "*/config*" -not -path "*/tmp*" -not -path "*/misc*" | xargs chown www-data:www-data
 
 # Copy root filesystem
 COPY rootfs /
 RUN chmod +x /etc/s6-overlay/s6-rc.d/init-mariadb/run \
-  && chmod +x /etc/s6-overlay/s6-rc.d/init-nginx/run
+  && chmod +x /etc/s6-overlay/s6-rc.d/init-nginx/run \
+  && chmod +x /etc/s6-overlay/s6-rc.d/init-matomo-data/run
 
 #COPY php.ini
 COPY php.ini /usr/local/etc/php/conf.d/php-matomo.ini
