@@ -7,7 +7,8 @@ DATA_DIR="/data/matomo"
 mkdir -p \
     "${DATA_DIR}/config" \
     "${DATA_DIR}/misc" \
-    "${DATA_DIR}/tmp"
+    "${DATA_DIR}/tmp" \
+    "${DATA_DIR}/js"
 
 chown -R www-data:www-data "${DATA_DIR}"
 
@@ -30,5 +31,6 @@ link_dir() {
 link_dir "config"
 link_dir "misc"
 link_dir "tmp"
+link_dir "js"
 
 bashio::log.info "Persistent data ready !"
