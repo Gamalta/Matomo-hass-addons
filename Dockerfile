@@ -1,7 +1,7 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:9.2.0
-
 # Build the actual app.
-FROM ${BUILD_FROM}
+# Base image is set here directly: since Supervisor 2026.04 build.yaml is legacy
+# and BUILD_FROM is no longer provided by default.
+FROM ghcr.io/hassio-addons/debian-base:9.5.2
 
 ENV PHP_MEMORY_LIMIT=256M
 
@@ -31,7 +31,7 @@ RUN \
     && touch /var/log/nginx/error.log
 
 
-ENV MATOMO_VERSION=5.8.0
+ENV MATOMO_VERSION=5.14.2
 RUN mkdir -p /var/www/html \
     && rm /var/www/html/index.nginx-debian.html \
     && chown www-data:www-data /var/www/html \
@@ -49,15 +49,13 @@ RUN chmod +x /etc/s6-overlay/s6-rc.d/init-mariadb/run \
 #COPY php.ini
 COPY php.ini /usr/local/etc/php/conf.d/php-matomo.ini
 
-# Build arguments
+# Build arguments (only BUILD_ARCH and BUILD_VERSION are still provided by Supervisor)
 ARG BUILD_ARCH
-ARG BUILD_DESCRIPTION
-ARG BUILD_NAME
 ARG BUILD_VERSION
 
 LABEL \
-    io.hass.name="${BUILD_NAME}" \
-    io.hass.description="${BUILD_DESCRIPTION}" \
+    io.hass.name="Matomo" \
+    io.hass.description="Matomo analytics with embedded MariaDB" \
     io.hass.arch="${BUILD_ARCH}" \
-    io.hass.type="addon" \
+    io.hass.type="app" \
     io.hass.version=${BUILD_VERSION}
